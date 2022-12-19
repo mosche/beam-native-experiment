@@ -1,0 +1,174 @@
+plugins {
+  id 'com.github.johnrengelman.shadow' version '7.1.2'
+  // Apply GraalVM Native Image plugin
+  id 'org.graalvm.buildtools.native' version '0.9.18'
+  id "com.github.vlsi.jandex" version "1.84"
+  id 'application'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+}
+
+application {
+  mainClass = 'org.apache.beam.examples.MinimalWordCount'
+}
+
+def beamVersion = '2.43.0'
+
+
+sourceSets {
+  graal
+}
+
+configurations {
+  graalImplementation.extendsFrom(implementation)
+  nativeImageCompileOnly.extendsFrom(graalCompileOnly)
+
+  jandexOnly {
+    transitive = false // don't index transitive dependencies
+  }
+
+  all {
+    resolutionStrategy {
+      force "org.apache.beam:beam-sdks-java-core:${beamVersion}-SNAPSHOT"
+      force "org.apache.beam:beam-runners-direct-java:${beamVersion}-SNAPSHOT"
+    }
+  }
+}
+
+dependencies {
+  // main dependencies
+  implementation "org.apache.beam:beam-sdks-java-core:${beamVersion}"
+  implementation "org.apache.beam:beam-runners-direct-java:${beamVersion}"
+  implementation "org.slf4j:slf4j-jdk14:1.7.32"
+
+  // dependencies to build the native image
+  graalCompileOnly "org.graalvm.nativeimage:svm:22.3.0"
+  graalCompileOnly "io.smallrye:jandex:3.0.5"
+
+  // use graal source set to compile native-image
+  nativeImageCompileOnly sourceSets.graal.output
+
+  // dependencies to index with jandex
+  jandexOnly "org.apache.beam:beam-sdks-java-core:${beamVersion}"
+  jandexOnly "org.apache.beam:beam-runners-direct-java:${beamVersion}"
+}
+
+graalvmNative {
+  agent {
+    // Unfortunately this isn't sufficient to support dynamically generated classes in Beam.
+    // Beam loads such classes into the context classloader using ClassLoadingStrategy.UsingLookup(MethodHandle).
+    // Class define support will skip such classes: https://github.com/oracle/graal/issues/4248
+    // enableExperimentalPredefinedClasses = true
+  }
+  binaries {
+    main {
+      buildArgs '--features=org.apache.beam.sdk.transforms.reflect.PredefinedDoFnInvokerFeature'
+      buildArgs '--initialize-at-build-time=' +
+        'org.apache.beam.sdk.transforms.reflect.DoFnSignatures,' +
+        'org.apache.beam.sdk.util.common.ReflectHelpers,' +
+        // ByteBuddy classes, initialization triggered by ByteBuddyDoFnInvokerFactory.generateInvokerType
+        'net.bytebuddy.ByteBuddy,' +
+        'net.bytebuddy.ClassFileVersion,' +
+        'net.bytebuddy.description.annotation.AnnotationDescription$AbstractBase,' +
+        'net.bytebuddy.description.annotation.AnnotationDescription$ForLoadedAnnotation,' +
+        'net.bytebuddy.description.method.MethodDescription$ForLoadedMethod,' +
+        'net.bytebuddy.description.method.MethodDescription$InDefinedShape$AbstractBase$ForLoadedExecutable,' +
+        'net.bytebuddy.description.method.ParameterDescription$ForLoadedParameter$OfConstructor,' +
+        'net.bytebuddy.description.method.ParameterDescription$ForLoadedParameter$OfMethod,' +
+        'net.bytebuddy.description.method.ParameterDescription$ForLoadedParameter,' +
+        'net.bytebuddy.description.method.ParameterList$ForLoadedExecutable$OfConstructor,' +
+        'net.bytebuddy.description.method.ParameterList$ForLoadedExecutable,' +
+        'net.bytebuddy.description.modifier.Visibility$1,' +
+        'net.bytebuddy.description.type.TypeDefinition$Sort,' +
+        'net.bytebuddy.description.type.TypeDescription$ForLoadedType,' +
+        'net.bytebuddy.description.type.TypeDescription$Generic$AnnotationReader$Delegator$Chained,' +
+        'net.bytebuddy.description.type.TypeDescription$Generic$AnnotationReader$Delegator$ForLoadedExecutableParameterType,' +
+        'net.bytebuddy.description.type.TypeDescription$Generic$AnnotationReader$Delegator$ForLoadedField,' +
+        'net.bytebuddy.description.type.TypeDescription$Generic$AnnotationReader$Delegator$ForLoadedInterface,' +
+        'net.bytebuddy.description.type.TypeDescription$Generic$AnnotationReader$Delegator$ForLoadedMethodReturnType,' +
+        'net.bytebuddy.description.type.TypeDescription$Generic$AnnotationReader$Delegator$ForLoadedSuperClass,' +
+        'net.bytebuddy.description.type.TypeDescription$Generic$AnnotationReader$Delegator$ForLoadedTypeVariable,' +
+        'net.bytebuddy.description.type.TypeDescription$Generic$AnnotationReader$Delegator$Simple,' +
+        'net.bytebuddy.description.type.TypeDescription$Generic$AnnotationReader$Delegator,' +
+        'net.bytebuddy.description.type.TypeDescription$Generic$AnnotationReader$ForOwnerType,' +
+        'net.bytebuddy.description.type.TypeDescription$Generic$AnnotationReader$ForTypeArgument,' +
+        'net.bytebuddy.description.type.TypeDescription$Generic$AnnotationReader$ForTypeVariableBoundType$OfFormalTypeVariable,' +
+        'net.bytebuddy.description.type.TypeDescription$Generic$AnnotationReader$ForTypeVariableBoundType,' +
+        'net.bytebuddy.description.type.TypeDescription$Generic$OfNonGenericType$ForLoadedType,' +
+        'net.bytebuddy.description.type.TypeDescription$Generic,' +
+        'net.bytebuddy.description.type.TypeDescription,' +
+        'net.bytebuddy.dynamic.TargetType,' +
+        'net.bytebuddy.dynamic.loading.ClassInjector$UsingLookup,' +
+        'net.bytebuddy.dynamic.scaffold.InstrumentedType$Default,' +
+        'net.bytebuddy.dynamic.scaffold.MethodGraph$Compiler,' +
+        'net.bytebuddy.dynamic.scaffold.TypeWriter$Default$ForCreation,' +
+        'net.bytebuddy.dynamic.scaffold.TypeWriter$Default,' +
+        'net.bytebuddy.dynamic.scaffold.subclass.SubclassImplementationTarget$Factory,' +
+        'net.bytebuddy.implementation.LoadedTypeInitializer$ForStaticField,' +
+        'net.bytebuddy.implementation.bytecode.Duplication$1,' +
+        'net.bytebuddy.implementation.bytecode.Duplication$2,' +
+        'net.bytebuddy.implementation.bytecode.Duplication$3,' +
+        'net.bytebuddy.implementation.bytecode.Duplication,' +
+        'net.bytebuddy.implementation.bytecode.Removal$1,' +
+        'net.bytebuddy.implementation.bytecode.Removal$2,' +
+        'net.bytebuddy.implementation.bytecode.Removal,' +
+        'net.bytebuddy.implementation.bytecode.assign.Assigner,' +
+        'net.bytebuddy.implementation.bytecode.assign.primitive.PrimitiveBoxingDelegate,' +
+        'net.bytebuddy.implementation.bytecode.assign.primitive.PrimitiveUnboxingDelegate,' +
+        'net.bytebuddy.implementation.bytecode.assign.primitive.PrimitiveWideningDelegate,' +
+        'net.bytebuddy.implementation.bytecode.constant.IntegerConstant,' +
+        'net.bytebuddy.implementation.bytecode.member.FieldAccess,' +
+        'net.bytebuddy.implementation.bytecode.member.MethodReturn,' +
+        'net.bytebuddy.implementation.bytecode.member.MethodVariableAccess,' +
+        'net.bytebuddy.jar.asm.Opcodes,' +
+        'net.bytebuddy.pool.TypePool$AbstractBase$Hierarchical,' +
+        'net.bytebuddy.pool.TypePool$AbstractBase,' +
+        'net.bytebuddy.pool.TypePool$ClassLoading,' +
+        'net.bytebuddy.utility.GraalImageCode,' +
+        'net.bytebuddy.utility.JavaModule,' +
+        'net.bytebuddy.utility.JavaType,' +
+        'net.bytebuddy.utility.OpenedClassReader,' +
+        'net.bytebuddy.utility.RandomString,' +
+        'net.bytebuddy.utility.dispatcher.JavaDispatcher$Dispatcher$ForDefaultValue,' +
+        'net.bytebuddy.utility.dispatcher.JavaDispatcher$DynamicClassLoader,' +
+        'net.bytebuddy.utility.dispatcher.JavaDispatcher,' +
+        // Guava classes, initialization triggered by DoFnSignatures.parseSignature
+        'org.apache.beam.vendor.guava.v26_0_jre.com.google.common.collect.AbstractIterator$1,' +
+        'org.apache.beam.vendor.guava.v26_0_jre.com.google.common.collect.RegularImmutableMap,' +
+        'org.apache.beam.vendor.guava.v26_0_jre.com.google.common.math.IntMath$1,' +
+        'org.apache.beam.vendor.guava.v26_0_jre.com.google.common.math.IntMath,' +
+        'org.apache.beam.vendor.guava.v26_0_jre.com.google.common.reflect.Types$ClassOwnership$1,' +
+        'org.apache.beam.vendor.guava.v26_0_jre.com.google.common.reflect.Types$ClassOwnership$2,' +
+        'org.apache.beam.vendor.guava.v26_0_jre.com.google.common.reflect.Types$ClassOwnership,' +
+        'org.apache.beam.vendor.guava.v26_0_jre.com.google.common.reflect.Types$JavaVersion$1,' +
+        'org.apache.beam.vendor.guava.v26_0_jre.com.google.common.reflect.Types$JavaVersion$2,' +
+        'org.apache.beam.vendor.guava.v26_0_jre.com.google.common.reflect.Types$JavaVersion$3,' +
+        'org.apache.beam.vendor.guava.v26_0_jre.com.google.common.reflect.Types$JavaVersion$4,' +
+        'org.apache.beam.vendor.guava.v26_0_jre.com.google.common.reflect.Types$JavaVersion,' +
+        'org.apache.beam.vendor.guava.v26_0_jre.com.google.common.reflect.Types$NativeTypeVariableEquals,' +
+        'org.apache.beam.vendor.guava.v26_0_jre.com.google.common.reflect.Types$TypeVariableInvocationHandler'
+    }
+  }
+}
+
+jandex {
+  includeIndexInJar false
+}
+
+jandexMain {
+  inputFiles.from(
+    configurations.jandexOnly
+      .filter { it.name.endsWith('.jar') }
+      .collect { zipTree(it).filter { it.name.endsWith('.class') } })
+}
+
+
+shadowJar {
+  mergeServiceFiles() // merging service files in META-INF
+}
