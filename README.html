@@ -1,0 +1,523 @@
+<!DOCTYPE html><html><head>
+      <title>README</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="apache-beam-native-experiment">Apache Beam native experiment</h1>
+
+<p>This is an experiment to run a Beam pipeline <em>locally</em> as GraalVM native image.
+Goal of the experiment is to run the Beam <code>MinimalWordCount</code> example as native image locally
+using <code>DirectRunner</code>.</p>
+<p>Some of the major challenges expected for this experiment are Beam&#x2019;s usage of</p>
+<ul>
+<li>proxies for <code>PipelineOptions</code> and</li>
+<li>dynamically generated classes such as the <code>DoFn</code> invokers.</li>
+</ul>
+<p>Unfortunately, it is not possible to simply use the
+agent&#x2019;s <a href="https://www.graalvm.org/22.1/reference-manual/native-image/ExperimentalAgentOptions/#support-for-predefined-classes">class define support</a> (
+enabled using <code>experimental-class-define-support</code>) to extract such classes during a instrumented
+pipeline run. Beam loads such classes into the context classloader to support private access, but
+class define support will <a href="https://github.com/oracle/graal/issues/4248">skip such classes</a>.</p>
+<h2 class="mume-header" id="environment-setup">Environment setup</h2>
+
+<p>Make sure you have a GraalVM installed locally. Additionally, you have to install the
+<a href="https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html#_installing_graalvm_native_image_tool">native-image tool</a>
+.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment"># install GraalVM using SDKman!</span>
+sdk <span class="token function">install</span> java <span class="token number">22.3</span>.r11-grl
+sdk default java <span class="token number">22.3</span>.r11-grl
+<span class="token comment"># install native-image tool</span>
+gu <span class="token function">install</span> native-image
+</pre><h2 class="mume-header" id="generating-the-image-configuration">Generating the image configuration</h2>
+
+<p>At first, we generate the native-image configuration from an instrumented run with the GraalVM
+agent. Before your first run, you will have to download the sample data
+using <a href="https://cloud.google.com/storage/docs/gsutil_install#install">gsutil</a>.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">gsutil <span class="token function">cp</span> gs://apache-beam-samples/shakespeare/kinglear.txt /tmp/data/kinglear.txt
+gradle -Pagent run
+gradle metadataCopy --task run --dir src/main/resources/META-INF/native-image
+</pre><h2 class="mume-header" id="building-the-native-image">Building the native image</h2>
+
+<h3 class="mume-header" id="patching-beam">Patching Beam</h3>
+
+<p>Addressing the challenges mentioned above, let&#x2019;s first fix Beam so we can use dynamic proxies
+for <code>PipelineOptions</code> in the native image. What&#x2019;s key here is to create proxies from a stable,
+deterministic order of interfaces. This is necessary because each such order has to be registered
+when building the image. If we cannot rely on a deterministic order, the number of possible
+permutations we would have to register quickly explodes.</p>
+<pre data-role="codeBlock" data-info="java" class="language-java"><span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>interfaces<span class="token punctuation">,</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">Comparator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Class</span><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token annotation punctuation">@Override</span> <span class="token keyword keyword-public">public</span> <span class="token keyword keyword-int">int</span> <span class="token function">compare</span><span class="token punctuation">(</span><span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> c1<span class="token punctuation">,</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> c2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-return">return</span> c1<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">compareTo</span><span class="token punctuation">(</span>c2<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> allProxyClass <span class="token operator">=</span> <span class="token class-name">Proxy</span><span class="token punctuation">.</span><span class="token function">getProxyClass</span><span class="token punctuation">(</span><span class="token class-name">ReflectHelpers</span><span class="token punctuation">.</span><span class="token function">findClassLoader</span><span class="token punctuation">(</span>interfaces<span class="token punctuation">)</span><span class="token punctuation">,</span> interfaces<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>Next, we have to generate the dynamically generated <code>DoFnInvokers</code> at image build time.
+Unfortunately, this requires
+another <a href="https://github.com/apache/beam/compare/v2.43.0...mosche:beam:beam-native-image#diff-9cec8ec374edf5ad472d05effe1f9fdef8e900ac0c31246ce2f160263d6e6779">small patch</a>
+of Beam, so we can hook into the respective code in <code>ByteBuddyDoFnInvokerFactory</code> and store the
+generated classes on the image classpath.</p>
+<h4 class="mume-header" id="randomized-behavior-in-directrunner">Randomized behavior in DirectRunner</h4>
+
+<p>Finally, to prevent any potential traps with randomized behavior in <code>DirectRunner</code>, we simply remove
+respective parts for the purpose of this investigation.
+Random generators can prove tricky in native images. If initialized at build time, results won&#x2019;t be
+random anymore. Instead, each run will produce the very same sequence of numbers as we&#x2019;re using the
+exactly same seed value each time.</p>
+<p>With these few these patches in place, you can build a Snapshot version of Beam that can run on a
+native image. To do so, pull this <a href="https://github.com/mosche/beam/tree/beam-native-image">branch</a>
+and publish it locally.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">gradle -Ppublishing -PdistMgmtSnapshotsUrl<span class="token operator">=~</span>/.m2/repository/ -p sdks/java/core  publishToMavenLocal -PenableCheckerFramework<span class="token operator">=</span>false
+gradle -Ppublishing -PdistMgmtSnapshotsUrl<span class="token operator">=~</span>/.m2/repository/ -p runners/direct-java  publishToMavenLocal -PenableCheckerFramework<span class="token operator">=</span>false
+</pre><h3 class="mume-header" id="generate-dynamic-classes-during-build">Generate dynamic classes during build</h3>
+
+<p>Our next challenge is to find all <code>DoFns</code> that require an invoker.</p>
+<p>We can use <a href="https://smallrye.io/jandex/jandex/3.0.5/index.html"><code>jandex</code></a> to index relevant parts of
+the classpath and query for all <code>DoFn</code> implementations.</p>
+<p><code>build.gradle</code> defines an intransitive configuration <code>jandexOnly</code>. The content of jars of this
+configuration without any transitive dependencies, in our case just Beam <code>core</code> and <code>direct-java</code>,
+is indexed in addition to the main sources:</p>
+<pre data-role="codeBlock" data-info="groovy" class="language-groovy">jandexMain <span class="token punctuation">{</span>
+  inputFiles<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>
+    configurations<span class="token punctuation">.</span>jandexOnly
+      <span class="token punctuation">.</span>filter <span class="token punctuation">{</span> it<span class="token punctuation">.</span>name<span class="token punctuation">.</span><span class="token function">endsWith</span><span class="token punctuation">(</span><span class="token string">&apos;.jar&apos;</span><span class="token punctuation">)</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">.</span>collect <span class="token punctuation">{</span> <span class="token function">zipTree</span><span class="token punctuation">(</span>it<span class="token punctuation">)</span><span class="token punctuation">.</span>filter <span class="token punctuation">{</span> it<span class="token punctuation">.</span>name<span class="token punctuation">.</span><span class="token function">endsWith</span><span class="token punctuation">(</span><span class="token string">&apos;.class&apos;</span><span class="token punctuation">)</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</pre><p>The <code>PredefinedDoFnInvokerFeature</code> implements
+a <a href="https://build-native-java-apps.cc/developer-guide/feature/">build feature</a> that generates
+invokers for all <code>DoFn</code>subclasses and registers them for reflective instantiation before doing any
+code analysis. <code>ByteBuddyDoFnInvokerFactory.generateInvokerType</code> is the hook we need to access and
+write the generated classes.</p>
+<pre data-role="codeBlock" data-info="java" class="language-java"><span class="token class-name">Index</span> index <span class="token operator">=</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">IndexReader</span><span class="token punctuation">(</span><span class="token keyword keyword-new">new</span> <span class="token class-name">FileInputStream</span><span class="token punctuation">(</span>jandex<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token class-name">ClassInfo</span> delegate <span class="token operator">:</span> index<span class="token punctuation">.</span><span class="token function">getAllKnownSubclasses</span><span class="token punctuation">(</span><span class="token class-name">DoFn</span><span class="token punctuation">.</span><span class="token keyword keyword-class">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> clazz <span class="token operator">=</span> <span class="token class-name">Class</span><span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span>delegate<span class="token punctuation">.</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token function">contextLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">DoFnSignature</span> signature <span class="token operator">=</span> <span class="token class-name">DoFnSignatures</span><span class="token punctuation">.</span><span class="token function">getSignature</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">Class</span><span class="token punctuation">)</span> clazz<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token class-name">Loaded</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> type <span class="token operator">=</span> <span class="token class-name">ByteBuddyDoFnInvokerFactory</span><span class="token punctuation">.</span><span class="token function">generateInvokerType</span><span class="token punctuation">(</span>signature<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  type<span class="token punctuation">.</span><span class="token function">saveIn</span><span class="token punctuation">(</span>classesDir<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> invokerClass <span class="token operator">=</span> type<span class="token punctuation">.</span><span class="token function">getLoaded</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">RuntimeReflection</span><span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span>invokerClass<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">RuntimeReflection</span><span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span>invokerClass<span class="token punctuation">.</span><span class="token function">getConstructor</span><span class="token punctuation">(</span>clazz<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p>To be picked up, we have to register the feature as build argument in the
+Gradle <a href="https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html#_introduction">native</a>
+plugin.</p>
+<pre data-role="codeBlock" data-info="groovy" class="language-groovy">graalvmNative <span class="token punctuation">{</span>
+  binaries <span class="token punctuation">{</span>
+    main <span class="token punctuation">{</span>
+      buildArgs <span class="token string">&apos;--features=org.apache.beam.sdk.transforms.reflect.PredefinedDoFnInvokerFeature&apos;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</pre><h3 class="mume-header" id="loading-pre-built-classes">Loading pre-built classes</h3>
+
+<p>Having all invokers pre-built, we obviously don&#x2019;t want to invoke <code>ByteBuddy</code> anymore when calling
+<code>ByteBuddyDoFnInvokerFactory.generateInvokerClass(DoFnSignature signature)</code>. We can substitute
+respective bytecode during compilation to just load the right invoker by name:</p>
+<pre data-role="codeBlock" data-info="java" class="language-java"><span class="token annotation punctuation">@TargetClass</span><span class="token punctuation">(</span><span class="token class-name">ByteBuddyDoFnInvokerFactory</span><span class="token punctuation">.</span><span class="token keyword keyword-class">class</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-public">public</span> <span class="token keyword keyword-final">final</span> <span class="token keyword keyword-class">class</span> <span class="token class-name">SubstituteByteBuddyDoFnInvokerFactory</span> <span class="token punctuation">{</span>
+
+  <span class="token annotation punctuation">@Substitute</span>
+  <span class="token keyword keyword-private">private</span> <span class="token keyword keyword-static">static</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword keyword-extends">extends</span> <span class="token class-name">DoFnInvoker</span><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">,</span> <span class="token operator">?</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> <span class="token function">generateInvokerClass</span><span class="token punctuation">(</span><span class="token class-name">DoFnSignature</span> signature<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">String</span> invokerName <span class="token operator">=</span>
+        <span class="token class-name">StableInvokerNamingStrategy</span><span class="token punctuation">.</span><span class="token function">forDoFnClass</span><span class="token punctuation">(</span>signature<span class="token punctuation">.</span><span class="token function">fnClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">withSuffix</span><span class="token punctuation">(</span><span class="token class-name">DoFnInvoker</span><span class="token punctuation">.</span><span class="token keyword keyword-class">class</span><span class="token punctuation">.</span><span class="token function">getSimpleName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token keyword keyword-new">new</span> <span class="token class-name">TypeDescription<span class="token punctuation">.</span>ForLoadedType</span><span class="token punctuation">(</span><span class="token class-name">DoFnInvoker</span><span class="token punctuation">.</span><span class="token keyword keyword-class">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-try">try</span> <span class="token punctuation">{</span>
+      <span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span><span class="token class-name">Class</span><span class="token punctuation">)</span> <span class="token class-name">Class</span><span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span>invokerName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword keyword-catch">catch</span> <span class="token punctuation">(</span><span class="token class-name">ClassNotFoundException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword keyword-throw">throw</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</pre><h3 class="mume-header" id="optional-improve-dofnsignature-lookup">Optional: Improve DoFnSignature lookup</h3>
+
+<p>Finally, we can remove the code path to generate <code>DoFnSignature</code>s. All required signatures have
+already been generated during compilation in the above feature and will be stored in the image.
+As <code>signatureCache</code> has become read-only, we can also replace the <code>ConcurrentHashMap</code> with a
+standard <code>HashMap</code>. Though, that&#x2019;s more to showcase the possibilities, rather than fixing a real
+performance bottleneck.</p>
+<pre data-role="codeBlock" data-info="java" class="language-java"><span class="token annotation punctuation">@TargetClass</span><span class="token punctuation">(</span><span class="token class-name">DoFnSignatures</span><span class="token punctuation">.</span><span class="token keyword keyword-class">class</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-public">public</span> <span class="token keyword keyword-final">final</span> <span class="token keyword keyword-class">class</span> <span class="token class-name">SubstituteDoFnSignatures</span> <span class="token punctuation">{</span>
+
+  <span class="token annotation punctuation">@Alias</span>
+  <span class="token annotation punctuation">@RecomputeFieldValue</span><span class="token punctuation">(</span>kind <span class="token operator">=</span> <span class="token class-name">Kind<span class="token punctuation">.</span>Custom</span><span class="token punctuation">,</span> declClass <span class="token operator">=</span> <span class="token class-name">MapTransformer</span><span class="token punctuation">.</span><span class="token keyword keyword-class">class</span><span class="token punctuation">,</span> isFinal <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+  <span class="token keyword keyword-private">private</span> <span class="token keyword keyword-static">static</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Class</span><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword keyword-extends">extends</span> <span class="token class-name">DoFn</span><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">,</span> <span class="token operator">?</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span><span class="token punctuation">,</span> <span class="token class-name">DoFnSignature</span><span class="token punctuation">&gt;</span></span> signatureCache<span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-public">public</span> <span class="token keyword keyword-static">static</span> <span class="token keyword keyword-class">class</span> <span class="token class-name">MapTransformer</span> <span class="token keyword keyword-implements">implements</span> <span class="token class-name">FieldValueTransformer</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword keyword-public">public</span> <span class="token class-name">Object</span> <span class="token function">transform</span><span class="token punctuation">(</span><span class="token class-name">Object</span> receiver<span class="token punctuation">,</span> <span class="token class-name">Object</span> originalValue<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword keyword-return">return</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">Map</span><span class="token punctuation">)</span> originalValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Substitute</span>
+  <span class="token keyword keyword-public">public</span> <span class="token keyword keyword-static">static</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">FnT</span> <span class="token keyword keyword-extends">extends</span> <span class="token class-name">DoFn</span><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">,</span> <span class="token operator">?</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> <span class="token class-name">DoFnSignature</span> <span class="token function">getSignature</span><span class="token punctuation">(</span><span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">FnT</span><span class="token punctuation">&gt;</span></span> fn<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-return">return</span> signatureCache<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>fn<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// don&apos;t call parseSignature if absent</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Delete</span>
+  <span class="token keyword keyword-private">private</span> <span class="token keyword keyword-static">static</span> <span class="token class-name">DoFnSignature</span> <span class="token function">parseSignature</span><span class="token punctuation">(</span><span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword keyword-extends">extends</span> <span class="token class-name">DoFn</span><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">,</span> <span class="token operator">?</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> fnClass<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-return">return</span> <span class="token keyword keyword-null">null</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</pre><h3 class="mume-header" id="evaluation">Evaluation</h3>
+
+<p>In the following we&#x2019;re going to evaluate performance and memory usage of the native pipeline against
+the same pipeline running on the JVM. To do so, we build both the native-image and an uber jar.
+The <code>time</code> command allows to gather some basic runtime metrics.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">gradle nativeCompile
+gradle shadowJar
+</pre><pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment"># Configure zsh time command to emit Json for easier postprocessing</span>
+<span class="token assign-left variable">TIMEFMT</span><span class="token operator">=</span><span class="token string">&apos;{&quot;time_user_ms&quot;: &quot;%mU&quot;, &quot;time_system_ms&quot;: &quot;%mS&quot;, &quot;time_elapsed_ms&quot;: &quot;%mE&quot;, &quot;rss_max_kb&quot;: %M, &quot;cpu_percentage&quot;: &quot;%P&quot;}&apos;</span>
+
+<span class="token comment"># Trigger 50 instrumented pipeline runs each</span>
+repeat <span class="token number">50</span> <span class="token function">time</span> java -jar build/libs/beam-native-experiment-1.0-SNAPSHOT-all.jar <span class="token operator">&amp;&gt;</span> /dev/null
+repeat <span class="token number">50</span> <span class="token function">time</span> build/native/nativeCompile/beam-native-experiment <span class="token operator">&amp;&gt;</span> /dev/null
+</pre><p>The boxplot charts below visualize performance (time elapsed) and memory usage (max RSS) based on 50
+benchmark runs each. We can see performance improved by roughly 10% (median) using the native-image.
+For memory usage the improvement is about 55% (median). That&#x2019;s a lot more significant, but still not
+as much as expected.</p>
+<p><!--?xml version="1.0" encoding="utf-8"?-->
+
+<svg class="marks" width="970" height="344" viewBox="0 0 970 344" version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink"><rect width="970" height="344" style="fill: white;"/><g transform="translate(65,6)"><g class="mark-group role-frame root"><g transform="translate(0,0)"><path class="background" d="M0,0h0v300h0Z" style="fill: none;"/><g><g class="mark-group role-scope concat_0_group"><g transform="translate(0,0)"><path class="background" d="M0.5,0.5h100v300h-100Z" style="fill: none; stroke: #ddd;"/><g><g class="mark-group role-axis"><g transform="translate(0.5,0.5)"><path class="background" d="M0,0h0v0h0Z" style="pointer-events: none; fill: none;"/><g><g class="mark-rule role-axis-grid" style="pointer-events: none;"><line transform="translate(0,300)" x2="100" y2="0" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(0,254)" x2="100" y2="0" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(0,208)" x2="100" y2="0" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(0,162)" x2="100" y2="0" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(0,115)" x2="100" y2="0" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(0,69)" x2="100" y2="0" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(0,23)" x2="100" y2="0" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/></g></g><path class="foreground" d="" style="pointer-events: none; display: none; fill: none;"/></g></g><g class="mark-group role-axis"><g transform="translate(0.5,300.5)"><path class="background" d="M0,0h0v0h0Z" style="pointer-events: none; fill: none;"/><g><g class="mark-rule role-axis-tick" style="pointer-events: none;"><line transform="translate(25,0)" x2="0" y2="5" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(75,0)" x2="0" y2="5" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/></g><g class="mark-rule role-axis-domain" style="pointer-events: none;"><line transform="translate(0,0)" x2="100" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/></g><g class="mark-text role-axis-title" style="pointer-events: none;"><text text-anchor="middle" transform="translate(50,19)" style="font-family: sans-serif; font-size: 11px; font-weight: bold; fill: #000; opacity: 1;">type</text></g></g><path class="foreground" d="" style="pointer-events: none; display: none; fill: none;"/></g></g><g class="mark-group role-axis"><g transform="translate(0.5,0.5)"><path class="background" d="M0,0h0v0h0Z" style="pointer-events: none; fill: none;"/><g><g class="mark-rule role-axis-tick" style="pointer-events: none;"><line transform="translate(0,300)" x2="-5" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(0,254)" x2="-5" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(0,208)" x2="-5" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(0,162)" x2="-5" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(0,115)" x2="-5" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(0,69)" x2="-5" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(0,23)" x2="-5" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/></g><g class="mark-text role-axis-label" style="pointer-events: none;"><text text-anchor="end" transform="translate(-7,303)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">0</text><text text-anchor="end" transform="translate(-7,256.8461538461538)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">20,000</text><text text-anchor="end" transform="translate(-7,210.69230769230768)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">40,000</text><text text-anchor="end" transform="translate(-7,164.53846153846152)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">60,000</text><text text-anchor="end" transform="translate(-7,118.38461538461537)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">80,000</text><text text-anchor="end" transform="translate(-7,72.23076923076921)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">100,000</text><text text-anchor="end" transform="translate(-7,26.076923076923062)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">120,000</text></g><g class="mark-rule role-axis-domain" style="pointer-events: none;"><line transform="translate(0,300)" x2="0" y2="-300" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/></g><g class="mark-text role-axis-title" style="pointer-events: none;"><text text-anchor="middle" transform="translate(-47.1474609375,150) rotate(-90) translate(0,-2)" style="font-family: sans-serif; font-size: 11px; font-weight: bold; fill: #000; opacity: 1;">Total time elapsed (ms)</text></g></g><path class="foreground" d="" style="pointer-events: none; display: none; fill: none;"/></g></g><g class="mark-symbol role-mark concat_0_layer_0_layer_0_marks"><path transform="translate(25,21.90923076923077)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #4c78a8; stroke-width: 2; opacity: 0.7;"/></g><g class="mark-rule role-mark concat_0_layer_0_layer_1_layer_0_marks"><line transform="translate(25,216.78230769230768)" x2="0" y2="-29.17211538461538" style="fill: none; stroke: black;"/><line transform="translate(75,227.62615384615384)" x2="0" y2="-11.151923076923083" style="fill: none; stroke: black;"/></g><g class="mark-rule role-mark concat_0_layer_0_layer_1_layer_1_marks"><line transform="translate(25,128.84884615384615)" x2="0" y2="-40.78499999999998" style="fill: none; stroke: black;"/><line transform="translate(75,164.31230769230766)" x2="0" y2="-19.41230769230765" style="fill: none; stroke: black;"/></g><g class="mark-rect role-mark concat_0_layer_1_layer_0_marks"><path d="M18,128.84884615384615h14v58.76134615384615h-14Z" style="fill: #66c2a5;"/><path d="M68,164.31230769230766h14v52.1619230769231h-14Z" style="fill: #fc8d62;"/></g><g class="mark-rect role-mark concat_0_layer_1_layer_1_marks"><path d="M18,164.0592307692308h14v1h-14Z" style="fill: white; opacity: 0.7;"/><path d="M68,177.26269230769233h14v1h-14Z" style="fill: white; opacity: 0.7;"/></g></g><path class="foreground" d="" style="display: none; fill: none;"/></g></g><g class="mark-group role-scope concat_1_group"><g transform="translate(269,0)"><path class="background" d="M0.5,0.5h100v300h-100Z" style="fill: none; stroke: #ddd;"/><g><g class="mark-group role-axis"><g transform="translate(0.5,0.5)"><path class="background" d="M0,0h0v0h0Z" style="pointer-events: none; fill: none;"/><g><g class="mark-rule role-axis-grid" style="pointer-events: none;"><line transform="translate(0,300)" x2="100" y2="0" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(0,254)" x2="100" y2="0" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(0,208)" x2="100" y2="0" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(0,162)" x2="100" y2="0" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(0,115)" x2="100" y2="0" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(0,69)" x2="100" y2="0" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(0,23)" x2="100" y2="0" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/></g></g><path class="foreground" d="" style="pointer-events: none; display: none; fill: none;"/></g></g><g class="mark-group role-axis"><g transform="translate(0.5,300.5)"><path class="background" d="M0,0h0v0h0Z" style="pointer-events: none; fill: none;"/><g><g class="mark-rule role-axis-tick" style="pointer-events: none;"><line transform="translate(25,0)" x2="0" y2="5" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(75,0)" x2="0" y2="5" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/></g><g class="mark-rule role-axis-domain" style="pointer-events: none;"><line transform="translate(0,0)" x2="100" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/></g><g class="mark-text role-axis-title" style="pointer-events: none;"><text text-anchor="middle" transform="translate(50,19)" style="font-family: sans-serif; font-size: 11px; font-weight: bold; fill: #000; opacity: 1;">type</text></g></g><path class="foreground" d="" style="pointer-events: none; display: none; fill: none;"/></g></g><g class="mark-group role-axis"><g transform="translate(0.5,0.5)"><path class="background" d="M0,0h0v0h0Z" style="pointer-events: none; fill: none;"/><g><g class="mark-rule role-axis-tick" style="pointer-events: none;"><line transform="translate(0,300)" x2="-5" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(0,254)" x2="-5" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(0,208)" x2="-5" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(0,162)" x2="-5" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(0,115)" x2="-5" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(0,69)" x2="-5" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(0,23)" x2="-5" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/></g><g class="mark-text role-axis-label" style="pointer-events: none;"><text text-anchor="end" transform="translate(-7,303)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">0</text><text text-anchor="end" transform="translate(-7,256.8461538461538)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">200,000</text><text text-anchor="end" transform="translate(-7,210.69230769230768)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">400,000</text><text text-anchor="end" transform="translate(-7,164.53846153846152)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">600,000</text><text text-anchor="end" transform="translate(-7,118.38461538461537)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">800,000</text><text text-anchor="end" transform="translate(-7,72.23076923076921)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">1,000,000</text><text text-anchor="end" transform="translate(-7,26.076923076923062)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">1,200,000</text></g><g class="mark-rule role-axis-domain" style="pointer-events: none;"><line transform="translate(0,300)" x2="0" y2="-300" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/></g><g class="mark-text role-axis-title" style="pointer-events: none;"><text text-anchor="middle" transform="translate(-55.4873046875,150) rotate(-90) translate(0,-2)" style="font-family: sans-serif; font-size: 11px; font-weight: bold; fill: #000; opacity: 1;">Max RSS (kb)</text></g></g><path class="foreground" d="" style="pointer-events: none; display: none; fill: none;"/></g></g><g class="mark-symbol role-mark concat_1_layer_0_layer_0_marks"><path transform="translate(25,70.45015384615385)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #4c78a8; stroke-width: 2; opacity: 0.7;"/><path transform="translate(25,97.15015384615384)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #4c78a8; stroke-width: 2; opacity: 0.7;"/><path transform="translate(25,22.602461538461537)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #4c78a8; stroke-width: 2; opacity: 0.7;"/><path transform="translate(25,93.14215384615383)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #4c78a8; stroke-width: 2; opacity: 0.7;"/><path transform="translate(25,74.1563076923077)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #4c78a8; stroke-width: 2; opacity: 0.7;"/><path transform="translate(25,96.44123076923077)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #4c78a8; stroke-width: 2; opacity: 0.7;"/><path transform="translate(25,88.92646153846155)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #4c78a8; stroke-width: 2; opacity: 0.7;"/><path transform="translate(25,94.04676923076923)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #4c78a8; stroke-width: 2; opacity: 0.7;"/><path transform="translate(25,88.5803076923077)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #4c78a8; stroke-width: 2; opacity: 0.7;"/><path transform="translate(25,30.559384615384598)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #4c78a8; stroke-width: 2; opacity: 0.7;"/><path transform="translate(25,28.507384615384613)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #4c78a8; stroke-width: 2; opacity: 0.7;"/><path transform="translate(75,79.34215384615385)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #4c78a8; stroke-width: 2; opacity: 0.7;"/></g><g class="mark-rule role-mark concat_1_layer_0_layer_1_layer_0_marks"><line transform="translate(25,55.194461538461525)" x2="0" y2="-0.7001538461538388" style="fill: none; stroke: black;"/><line transform="translate(75,229.91446153846152)" x2="0" y2="-20.613923076923072" style="fill: none; stroke: black;"/></g><g class="mark-rule role-mark concat_1_layer_0_layer_1_layer_1_marks"><line transform="translate(25,45.35330769230769)" x2="0" y2="-11.585307692307687" style="fill: none; stroke: black;"/><line transform="translate(75,168.6009230769231)" x2="0" y2="-33.135692307692324" style="fill: none; stroke: black;"/></g><g class="mark-rect role-mark concat_1_layer_1_layer_0_marks"><path d="M18,45.35330769230769h14v9.140999999999998h-14Z" style="fill: #66c2a5;"/><path d="M68,168.6009230769231h14v40.699615384615356h-14Z" style="fill: #fc8d62;"/></g><g class="mark-rect role-mark concat_1_layer_1_layer_1_marks"><path d="M18,49.16846153846153h14v1h-14Z" style="fill: white; opacity: 0.7;"/><path d="M68,185.9832307692308h14v1h-14Z" style="fill: white; opacity: 0.7;"/></g></g><path class="foreground" d="" style="display: none; fill: none;"/></g></g><g class="mark-group role-scope concat_2_group"><g transform="translate(538,0)"><path class="background" d="M0.5,0.5h300v300h-300Z" style="fill: none; stroke: #ddd;"/><g><g class="mark-group role-axis"><g transform="translate(0.5,300.5)"><path class="background" d="M0,0h0v0h0Z" style="pointer-events: none; fill: none;"/><g><g class="mark-rule role-axis-grid" style="pointer-events: none;"><line transform="translate(0,-300)" x2="0" y2="300" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(46,-300)" x2="0" y2="300" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(92,-300)" x2="0" y2="300" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(138,-300)" x2="0" y2="300" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(185,-300)" x2="0" y2="300" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(231,-300)" x2="0" y2="300" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(277,-300)" x2="0" y2="300" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/></g></g><path class="foreground" d="" style="pointer-events: none; display: none; fill: none;"/></g></g><g class="mark-group role-axis"><g transform="translate(0.5,0.5)"><path class="background" d="M0,0h0v0h0Z" style="pointer-events: none; fill: none;"/><g><g class="mark-rule role-axis-grid" style="pointer-events: none;"><line transform="translate(0,300)" x2="300" y2="0" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(0,254)" x2="300" y2="0" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(0,208)" x2="300" y2="0" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(0,162)" x2="300" y2="0" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(0,115)" x2="300" y2="0" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(0,69)" x2="300" y2="0" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/><line transform="translate(0,23)" x2="300" y2="0" style="fill: none; stroke: #ddd; stroke-width: 1; opacity: 1;"/></g></g><path class="foreground" d="" style="pointer-events: none; display: none; fill: none;"/></g></g><g class="mark-group role-axis"><g transform="translate(0.5,300.5)"><path class="background" d="M0,0h0v0h0Z" style="pointer-events: none; fill: none;"/><g><g class="mark-rule role-axis-tick" style="pointer-events: none;"><line transform="translate(0,0)" x2="0" y2="5" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(46,0)" x2="0" y2="5" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(92,0)" x2="0" y2="5" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(138,0)" x2="0" y2="5" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(185,0)" x2="0" y2="5" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(231,0)" x2="0" y2="5" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(277,0)" x2="0" y2="5" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/></g><g class="mark-text role-axis-label" style="pointer-events: none;"><text text-anchor="start" transform="translate(0,15)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">0</text><text text-anchor="middle" transform="translate(46.15384615384615,15)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">20,000</text><text text-anchor="middle" transform="translate(92.3076923076923,15)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">40,000</text><text text-anchor="middle" transform="translate(138.46153846153848,15)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">60,000</text><text text-anchor="middle" transform="translate(184.6153846153846,15)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">80,000</text><text text-anchor="middle" transform="translate(230.76923076923077,15)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">100,000</text><text text-anchor="middle" transform="translate(276.92307692307696,15)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">120,000</text></g><g class="mark-rule role-axis-domain" style="pointer-events: none;"><line transform="translate(0,0)" x2="300" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/></g><g class="mark-text role-axis-title" style="pointer-events: none;"><text text-anchor="middle" transform="translate(150,30)" style="font-family: sans-serif; font-size: 11px; font-weight: bold; fill: #000; opacity: 1;">Total time elapsed (ms)</text></g></g><path class="foreground" d="" style="pointer-events: none; display: none; fill: none;"/></g></g><g class="mark-group role-axis"><g transform="translate(0.5,0.5)"><path class="background" d="M0,0h0v0h0Z" style="pointer-events: none; fill: none;"/><g><g class="mark-rule role-axis-tick" style="pointer-events: none;"><line transform="translate(0,300)" x2="-5" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(0,254)" x2="-5" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(0,208)" x2="-5" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(0,162)" x2="-5" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(0,115)" x2="-5" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(0,69)" x2="-5" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/><line transform="translate(0,23)" x2="-5" y2="0" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/></g><g class="mark-text role-axis-label" style="pointer-events: none;"><text text-anchor="end" transform="translate(-7,303)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">0</text><text text-anchor="end" transform="translate(-7,256.8461538461538)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">200,000</text><text text-anchor="end" transform="translate(-7,210.69230769230768)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">400,000</text><text text-anchor="end" transform="translate(-7,164.53846153846152)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">600,000</text><text text-anchor="end" transform="translate(-7,118.38461538461537)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">800,000</text><text text-anchor="end" transform="translate(-7,72.23076923076921)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">1,000,000</text><text text-anchor="end" transform="translate(-7,26.076923076923062)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">1,200,000</text></g><g class="mark-rule role-axis-domain" style="pointer-events: none;"><line transform="translate(0,300)" x2="0" y2="-300" style="fill: none; stroke: #888; stroke-width: 1; opacity: 1;"/></g><g class="mark-text role-axis-title" style="pointer-events: none;"><text text-anchor="middle" transform="translate(-55.4873046875,150) rotate(-90) translate(0,-2)" style="font-family: sans-serif; font-size: 11px; font-weight: bold; fill: #000; opacity: 1;">Max RSS (kb)</text></g></g><path class="foreground" d="" style="pointer-events: none; display: none; fill: none;"/></g></g><g class="mark-symbol role-mark concat_2_marks"><path transform="translate(190.2276923076923,70.45015384615385)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(172.96384615384613,97.15015384615384)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(114.57230769230769,47.856)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(112.17692307692307,41.11015384615385)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(114.94846153846153,51.43384615384614)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(178.20461538461538,48.108923076923084)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(113.63076923076922,49.27200000000001)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(154.7030769230769,22.602461538461537)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(143.59846153846155,45.38307692307693)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(159.17538461538464,54.723692307692296)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(107.06076923076922,93.14215384615383)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(122.87307692307692,74.1563076923077)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(143.4946153846154,47.96030769230768)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(89.52461538461539,50.268000000000015)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(211.93615384615384,48.65723076923077)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(100.5,50.78307692307693)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(125.0676923076923,52.074461538461534)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(141.5423076923077,54.88153846153845)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(176.86153846153846,45.344307692307694)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(136.22076923076924,42.914769230769245)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(134.16923076923075,40.913538461538465)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(165.71307692307693,53.88830769230768)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(142.43769230769232,96.44123076923077)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(83.21769230769232,54.23538461538463)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(113.02846153846154,52.91169230769231)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(98.95615384615385,88.92646153846155)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(83.58461538461538,51.54369230769231)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(138.88615384615386,55.194461538461525)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(100.48153846153845,54.580615384615385)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(200.36076923076922,48.74676923076922)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(124.49769230769232,41.27630769230769)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(153.72,52.76584615384614)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(278.09076923076924,42.69415384615384)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(210.8976923076923,41.17200000000001)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(104.54307692307692,50.06492307692307)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(198.48692307692306,47.169230769230786)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(106.35923076923076,47.59938461538462)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(180.43615384615384,48.10430769230769)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(133.12846153846155,39.048000000000016)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(144.62307692307692,52.67723076923077)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(104.2776923076923,33.768)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(115.80692307692307,45.99323076923078)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(113.30307692307693,45.380307692307696)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(190.71923076923076,94.04676923076923)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(181.9223076923077,88.5803076923077)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(174.4546153846154,30.559384615384598)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(134.66076923076923,28.507384615384613)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(146.26153846153846,37.212923076923076)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(105.38307692307693,55.0043076923077)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(97.14230769230768,54.09784615384614)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #66c2a5; stroke-width: 2; opacity: 0.7;"/><path transform="translate(136.83,189.20584615384618)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(120.17538461538462,151.47323076923078)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(146.19923076923078,213.16800000000003)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(135.8353846153846,214.90153846153848)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(130.46307692307693,195.4089230769231)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(145.40769230769232,211.8729230769231)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(124.65692307692308,180.0516923076923)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(75.81461538461538,198.86584615384618)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(82.91769230769232,164.69538461538463)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(79.44692307692308,206.3206153846154)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(120.45,174.16523076923076)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(132.2723076923077,167.26246153846157)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(154.16538461538462,79.34215384615385)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(81.97846153846153,178.2996923076923)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(110.34461538461538,200.38984615384615)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(132.3323076923077,209.50984615384615)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(94.38923076923076,185.3150769230769)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(75.75,188.79507692307692)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(143.56846153846155,224.4830769230769)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(141.17538461538462,162.50123076923074)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(138.8146153846154,166.83415384615387)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(132.25846153846155,166.84984615384616)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(133.42615384615385,173.19138461538458)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(155.1,229.91446153846152)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(72.37384615384615,193.428)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(147.73615384615383,182.2846153846154)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(73.09846153846154,218.02707692307692)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(85.35,135.46523076923077)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(131.85,200.85784615384617)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(124.8576923076923,213.3572307692308)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(128.56615384615384,181.43723076923078)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(116.67923076923077,167.71753846153845)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(120.07153846153847,169.44276923076922)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(138.01384615384615,216.912)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(72.61384615384615,152.184)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(124.02461538461539,167.24584615384614)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(73.55538461538461,199.08461538461538)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(90.48461538461538,208.67261538461537)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(85.50692307692309,187.1529230769231)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(135.24461538461537,218.27815384615386)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(72.72923076923077,226.392)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(100.33615384615385,168.3203076923077)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(132.54230769230767,182.2033846153846)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(110.14384615384616,182.81446153846153)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(72.44769230769231,185.81353846153846)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(150.40846153846152,215.41846153846157)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(99.81,219.13846153846154)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(74.82692307692308,179.33261538461537)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(144.67384615384614,141.1726153846154)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/><path transform="translate(80.00999999999999,196.12338461538462)" d="M2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,-2.7386127875258306,0A2.7386127875258306,2.7386127875258306,0,1,1,2.7386127875258306,0" style="fill: none; stroke: #fc8d62; stroke-width: 2; opacity: 0.7;"/></g></g><path class="foreground" d="" style="display: none; fill: none;"/></g></g><g class="mark-group role-legend"><g transform="translate(857,0)"><path class="background" d="M0,0h43v45h-43Z" style="pointer-events: none; fill: none;"/><g><g class="mark-group role-legend-entry"><g transform="translate(0,16)"><path class="background" d="M0,0h0v0h0Z" style="pointer-events: none; fill: none;"/><g><g class="mark-group role-scope"><g transform="translate(0,0)"><path class="background" d="M0,0h42.6845703125v12.5h-42.6845703125Z" style="pointer-events: none; fill: none; opacity: 1;"/><g><g class="mark-symbol role-legend-symbol" style="pointer-events: none;"><path transform="translate(6,6)" d="M5,0A5,5,0,1,1,-5,0A5,5,0,1,1,5,0" style="fill: #66c2a5; stroke: #66c2a5; stroke-width: 1.5; opacity: 0.7;"/></g><g class="mark-text role-legend-label" style="pointer-events: none;"><text text-anchor="start" transform="translate(16,9)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">jvm</text></g></g><path class="foreground" d="" style="pointer-events: none; display: none; fill: none;"/></g><g transform="translate(0,16)"><path class="background" d="M0,0h42.6845703125v12.5h-42.6845703125Z" style="pointer-events: none; fill: none; opacity: 1;"/><g><g class="mark-symbol role-legend-symbol" style="pointer-events: none;"><path transform="translate(6,6)" d="M5,0A5,5,0,1,1,-5,0A5,5,0,1,1,5,0" style="fill: #fc8d62; stroke: #fc8d62; stroke-width: 1.5; opacity: 0.7;"/></g><g class="mark-text role-legend-label" style="pointer-events: none;"><text text-anchor="start" transform="translate(16,9)" style="font-family: sans-serif; font-size: 10px; fill: #000; opacity: 1;">native</text></g></g><path class="foreground" d="" style="pointer-events: none; display: none; fill: none;"/></g></g></g><path class="foreground" d="" style="pointer-events: none; display: none; fill: none;"/></g></g><g class="mark-text role-legend-title" style="pointer-events: none;"><text text-anchor="start" transform="translate(0,9)" style="font-family: sans-serif; font-size: 11px; font-weight: bold; fill: #000; opacity: 1;">type</text></g></g><path class="foreground" d="" style="pointer-events: none; display: none; fill: none;"/></g></g></g><path class="foreground" d="" style="display: none; fill: none;"/></g></g></g></svg></p><h5 class="mume-header" id="summary-of-data-visualized-above">Summary of  data visualized above</h5>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Q1</th>
+<th>Median</th>
+<th>Q3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Time elapsed</td>
+<td><strong>Native</strong></td>
+<td>36.2 s</td>
+<td>53.0 s</td>
+<td>58.8 s</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>JVM</strong></td>
+<td>48.7 s</td>
+<td>58.7 s</td>
+<td>74.2 s</td>
+</tr>
+<tr>
+<td>Max RSS</td>
+<td><strong>Native</strong></td>
+<td>383.8 Mb</td>
+<td>480.4 Mb</td>
+<td>556.1 Mb</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>JVM</strong></td>
+<td>1038.9 Mb</td>
+<td>1059.3 Mb</td>
+<td>1077.6 Mb</td>
+</tr>
+</tbody>
+</table>
+<h2 class="mume-header" id="appendix">Appendix</h2>
+
+<h3 class="mume-header" id="flink-runner">Flink runner</h3>
+
+<p>The Flink runner was another candidate for this investigation, due to the nature of Flink with a lot
+more trouble expected. Flink system loader mechanism for Akka requires additional efforts to work in
+native mode, but was surprisingly easy to solve:</p>
+<ol>
+<li>
+<p>Extract <code>flink-rpc-akka.jar</code> from <code>flink-rpc-akka-loader-x.y.z.jar</code>.</p>
+</li>
+<li>
+<p>Substitute <code>AkkaRpcSystemLoader</code> to load <code>AkkaRpcSystem</code> directly from classpath.</p>
+<pre data-role="codeBlock" data-info="java" class="language-java"><span class="token annotation punctuation">@TargetClass</span><span class="token punctuation">(</span><span class="token class-name">AkkaRpcSystemLoader</span><span class="token punctuation">.</span><span class="token keyword keyword-class">class</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-public">public</span> <span class="token keyword keyword-final">final</span> <span class="token keyword keyword-class">class</span> <span class="token class-name">SubstituteAkkaRpcSystemLoader</span> <span class="token punctuation">{</span>
+
+  <span class="token annotation punctuation">@Substitute</span>
+  <span class="token keyword keyword-public">public</span> <span class="token class-name">RpcSystem</span> <span class="token function">loadRpcSystem</span><span class="token punctuation">(</span><span class="token class-name">Configuration</span> config<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-return">return</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">AkkaRpcSystem</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</pre></li>
+</ol>
+<p>However, similarly to Beam, Flink is using dynamic proxies without any deterministic order of
+interfaces. Proceeding with the experiment on Flink would require a patched version to work around
+the <a href="#patching-beam">interface problem</a> presented earlier.</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>
