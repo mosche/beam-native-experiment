@@ -60,11 +60,9 @@ Arrays.sort(interfaces, new Comparator<Class<?>>() {
 Class<T> allProxyClass = Proxy.getProxyClass(ReflectHelpers.findClassLoader(interfaces), interfaces);
 ```
 
-Next, we have to generate the dynamically generated `DoFnInvokers` at image build time.
-Unfortunately, this requires
-another [small patch](https://github.com/apache/beam/compare/v2.43.0...mosche:beam:beam-native-image#diff-9cec8ec374edf5ad472d05effe1f9fdef8e900ac0c31246ce2f160263d6e6779)
-of Beam, so we can hook into the respective code in `ByteBuddyDoFnInvokerFactory` and store the
-generated classes on the image classpath.
+Next, we have to support generating `DoFnInvokers` classes at image build time. This requires
+a [tiny patch](https://github.com/apache/beam/compare/v2.43.0...mosche:beam:beam-native-image#diff-9cec8ec374edf5ad472d05effe1f9fdef8e900ac0c31246ce2f160263d6e6779)
+to `ByteBuddyDoFnInvokerFactory` to loosen visibility of `generateInvokerClass` so we can access it.
 
 #### Randomized behavior in DirectRunner
 
@@ -104,21 +102,25 @@ jandexMain {
 ```
 
 The `PredefinedDoFnInvokerFeature` implements
-a [build feature](https://build-native-java-apps.cc/developer-guide/feature/) that generates
-invokers for all `DoFn`subclasses and registers them for reflective instantiation before doing any
-code analysis. `ByteBuddyDoFnInvokerFactory.generateInvokerType` is the hook we need to access and
-write the generated classes.
+a [build feature](https://build-native-java-apps.cc/developer-guide/feature/) that dynamically
+generates invoker classes for all `DoFn` subclasses using ByteBuddy by means of
+the `generateInvokerClass` utility in Beam. The generated classes are then registered for inclusion
+in the image. Additionally, we have to also register their constructor for reflective instantiation.
+
+Despite invoker classes and respective constructors being already listed in `reflect-config` (after
+the [agent run](#generating-the-image-configuration)), this has to be repeated in the feature.
+Previously the generated invoker classes were skipped as they simply didn't exist yet.
 
 ```java
 Index index = new IndexReader(new FileInputStream(jandex)).read();
 for (ClassInfo delegate : index.getAllKnownSubclasses(DoFn.class)) {
   Class<?> clazz = Class.forName(delegate.name().toString(), false, contextLoader());
   DoFnSignature signature = DoFnSignatures.getSignature((Class) clazz);
-
-  Loaded<?> type = ByteBuddyDoFnInvokerFactory.generateInvokerType(signature);
-  type.saveIn(classesDir);
-
-  Class<?> invokerClass = type.getLoaded();
+  
+  // Dynamically generate invoker class using ByteBuddy / Beam.
+  Class<?> invokerClass = ByteBuddyDoFnInvokerFactory.generateInvokerClass(signature);
+  
+  // Register the invoker class and constructor for inclusion in the image.
   RuntimeReflection.register(invokerClass);
   RuntimeReflection.register(invokerClass.getConstructor(clazz));
 }
@@ -140,9 +142,9 @@ graalvmNative {
 
 ### Loading pre-built classes
 
-Having all invokers pre-built, we obviously don't want to invoke `ByteBuddy` anymore when calling
-`ByteBuddyDoFnInvokerFactory.generateInvokerClass(DoFnSignature signature)`. We can substitute
-respective bytecode during compilation to just load the right invoker by name:
+Having all invokers already pre-built, we obviously don't want to invoke `ByteBuddy` anymore when
+later calling `generateInvokerClass` at runtime. We therefore substitute respective bytecode during
+compilation to just load the right invoker by name:
 
 ```java
 @TargetClass(ByteBuddyDoFnInvokerFactory.class)

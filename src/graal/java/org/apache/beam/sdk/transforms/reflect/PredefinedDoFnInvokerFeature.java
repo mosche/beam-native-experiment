@@ -3,7 +3,6 @@ package org.apache.beam.sdk.transforms.reflect;
 import java.io.File;
 import java.io.FileInputStream;
 import java.nio.file.Paths;
-import net.bytebuddy.dynamic.DynamicType.Loaded;
 import org.apache.beam.sdk.transforms.DoFn;
 import org.graalvm.nativeimage.hosted.Feature;
 import org.graalvm.nativeimage.hosted.RuntimeReflection;
@@ -16,7 +15,6 @@ public class PredefinedDoFnInvokerFeature implements Feature {
   @Override
   public void beforeAnalysis(BeforeAnalysisAccess access) {
     File jandex = Paths.get("../../jandex/jandexMain/jandex.idx").toFile();
-    File classesDir = Paths.get("../../classes/java/main").toFile();
 
     try (FileInputStream jis = new FileInputStream(jandex)) {
       Index index = new IndexReader(jis).read();
@@ -25,10 +23,10 @@ public class PredefinedDoFnInvokerFeature implements Feature {
         Class<?> clazz = Class.forName(delegate.name().toString(), false, contextLoader());
         DoFnSignature signature = DoFnSignatures.getSignature((Class) clazz);
 
-        Loaded<?> type = ByteBuddyDoFnInvokerFactory.generateInvokerType(signature);
-        type.saveIn(classesDir);
+        // Dynamically generate invoker class using ByteBuddy / Beam.
+        Class<?> invokerClass = ByteBuddyDoFnInvokerFactory.generateInvokerClass(signature);
 
-        Class<?> invokerClass = type.getLoaded();
+        // Register the invoker class and constructor for inclusion in the image.
         RuntimeReflection.register(invokerClass);
         RuntimeReflection.register(invokerClass.getConstructor(clazz));
       }
