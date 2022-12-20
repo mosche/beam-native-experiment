@@ -309,11 +309,9 @@ permutations we would have to register quickly explodes.</p>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> allProxyClass <span class="token operator">=</span> <span class="token class-name">Proxy</span><span class="token punctuation">.</span><span class="token function">getProxyClass</span><span class="token punctuation">(</span><span class="token class-name">ReflectHelpers</span><span class="token punctuation">.</span><span class="token function">findClassLoader</span><span class="token punctuation">(</span>interfaces<span class="token punctuation">)</span><span class="token punctuation">,</span> interfaces<span class="token punctuation">)</span><span class="token punctuation">;</span>
-</pre><p>Next, we have to generate the dynamically generated <code>DoFnInvokers</code> at image build time.
-Unfortunately, this requires
-another <a href="https://github.com/apache/beam/compare/v2.43.0...mosche:beam:beam-native-image#diff-9cec8ec374edf5ad472d05effe1f9fdef8e900ac0c31246ce2f160263d6e6779">small patch</a>
-of Beam, so we can hook into the respective code in <code>ByteBuddyDoFnInvokerFactory</code> and store the
-generated classes on the image classpath.</p>
+</pre><p>Next, we have to support generating <code>DoFnInvokers</code> classes at image build time. This requires
+a <a href="https://github.com/apache/beam/compare/v2.43.0...mosche:beam:beam-native-image#diff-9cec8ec374edf5ad472d05effe1f9fdef8e900ac0c31246ce2f160263d6e6779">tiny patch</a>
+to <code>ByteBuddyDoFnInvokerFactory</code> to loosen visibility of <code>generateInvokerClass</code> so we can access it.</p>
 <h4 class="mume-header" id="randomized-behavior-in-directrunner">Randomized behavior in DirectRunner</h4>
 
 <p>Finally, to prevent any potential traps with randomized behavior in <code>DirectRunner</code>, we simply remove
@@ -341,19 +339,22 @@ is indexed in addition to the main sources:</p>
       <span class="token punctuation">.</span>collect <span class="token punctuation">{</span> <span class="token function">zipTree</span><span class="token punctuation">(</span>it<span class="token punctuation">)</span><span class="token punctuation">.</span>filter <span class="token punctuation">{</span> it<span class="token punctuation">.</span>name<span class="token punctuation">.</span><span class="token function">endsWith</span><span class="token punctuation">(</span><span class="token string">&apos;.class&apos;</span><span class="token punctuation">)</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </pre><p>The <code>PredefinedDoFnInvokerFeature</code> implements
-a <a href="https://build-native-java-apps.cc/developer-guide/feature/">build feature</a> that generates
-invokers for all <code>DoFn</code>subclasses and registers them for reflective instantiation before doing any
-code analysis. <code>ByteBuddyDoFnInvokerFactory.generateInvokerType</code> is the hook we need to access and
-write the generated classes.</p>
+a <a href="https://build-native-java-apps.cc/developer-guide/feature/">build feature</a> that dynamically
+generates invoker classes for all <code>DoFn</code> subclasses using ByteBuddy by means of
+the <code>generateInvokerClass</code> utility in Beam. The generated classes are then registered for inclusion
+in the image. Additionally, we have to also register their constructor for reflective instantiation.</p>
+<p>Despite invoker classes and respective constructors being already listed in <code>reflect-config</code> (after
+the <a href="#generating-the-image-configuration">agent run</a>), this has to be repeated in the feature.
+Previously the generated invoker classes were skipped as they simply didn&#x2019;t exist yet.</p>
 <pre data-role="codeBlock" data-info="java" class="language-java"><span class="token class-name">Index</span> index <span class="token operator">=</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">IndexReader</span><span class="token punctuation">(</span><span class="token keyword keyword-new">new</span> <span class="token class-name">FileInputStream</span><span class="token punctuation">(</span>jandex<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token class-name">ClassInfo</span> delegate <span class="token operator">:</span> index<span class="token punctuation">.</span><span class="token function">getAllKnownSubclasses</span><span class="token punctuation">(</span><span class="token class-name">DoFn</span><span class="token punctuation">.</span><span class="token keyword keyword-class">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> clazz <span class="token operator">=</span> <span class="token class-name">Class</span><span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span>delegate<span class="token punctuation">.</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token function">contextLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token class-name">DoFnSignature</span> signature <span class="token operator">=</span> <span class="token class-name">DoFnSignatures</span><span class="token punctuation">.</span><span class="token function">getSignature</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">Class</span><span class="token punctuation">)</span> clazz<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token class-name">Loaded</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> type <span class="token operator">=</span> <span class="token class-name">ByteBuddyDoFnInvokerFactory</span><span class="token punctuation">.</span><span class="token function">generateInvokerType</span><span class="token punctuation">(</span>signature<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  type<span class="token punctuation">.</span><span class="token function">saveIn</span><span class="token punctuation">(</span>classesDir<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> invokerClass <span class="token operator">=</span> type<span class="token punctuation">.</span><span class="token function">getLoaded</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+  <span class="token comment">// Dynamically generate invoker class using ByteBuddy / Beam.</span>
+  <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> invokerClass <span class="token operator">=</span> <span class="token class-name">ByteBuddyDoFnInvokerFactory</span><span class="token punctuation">.</span><span class="token function">generateInvokerClass</span><span class="token punctuation">(</span>signature<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+  <span class="token comment">// Register the invoker class and constructor for inclusion in the image.</span>
   <span class="token class-name">RuntimeReflection</span><span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span>invokerClass<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token class-name">RuntimeReflection</span><span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span>invokerClass<span class="token punctuation">.</span><span class="token function">getConstructor</span><span class="token punctuation">(</span>clazz<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
@@ -369,9 +370,9 @@ plugin.</p>
 <span class="token punctuation">}</span>
 </pre><h3 class="mume-header" id="loading-pre-built-classes">Loading pre-built classes</h3>
 
-<p>Having all invokers pre-built, we obviously don&#x2019;t want to invoke <code>ByteBuddy</code> anymore when calling
-<code>ByteBuddyDoFnInvokerFactory.generateInvokerClass(DoFnSignature signature)</code>. We can substitute
-respective bytecode during compilation to just load the right invoker by name:</p>
+<p>Having all invokers already pre-built, we obviously don&#x2019;t want to invoke <code>ByteBuddy</code> anymore when
+later calling <code>generateInvokerClass</code> at runtime. We therefore substitute respective bytecode during
+compilation to just load the right invoker by name:</p>
 <pre data-role="codeBlock" data-info="java" class="language-java"><span class="token annotation punctuation">@TargetClass</span><span class="token punctuation">(</span><span class="token class-name">ByteBuddyDoFnInvokerFactory</span><span class="token punctuation">.</span><span class="token keyword keyword-class">class</span><span class="token punctuation">)</span>
 <span class="token keyword keyword-public">public</span> <span class="token keyword keyword-final">final</span> <span class="token keyword keyword-class">class</span> <span class="token class-name">SubstituteByteBuddyDoFnInvokerFactory</span> <span class="token punctuation">{</span>
 
