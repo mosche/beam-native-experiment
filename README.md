@@ -116,10 +116,10 @@ Index index = new IndexReader(new FileInputStream(jandex)).read();
 for (ClassInfo delegate : index.getAllKnownSubclasses(DoFn.class)) {
   Class<?> clazz = Class.forName(delegate.name().toString(), false, contextLoader());
   DoFnSignature signature = DoFnSignatures.getSignature((Class) clazz);
-  
+
   // Dynamically generate invoker class using ByteBuddy / Beam.
   Class<?> invokerClass = ByteBuddyDoFnInvokerFactory.generateInvokerClass(signature);
-  
+
   // Register the invoker class and constructor for inclusion in the image.
   RuntimeReflection.register(invokerClass);
   RuntimeReflection.register(invokerClass.getConstructor(clazz));
@@ -285,12 +285,20 @@ more trouble expected. Flink system loader mechanism for Akka requires additiona
 native mode, but was surprisingly easy to solve:
 
 1. Extract `flink-rpc-akka.jar` from `flink-rpc-akka-loader-x.y.z.jar`.
+    ```groovy
+    task extractFlinkAkkaRpc(type: Copy) {
+      from configurations.runtimeClasspath
+        .filter { it.name.contains('flink-rpc-akka-loader') }
+        .collect { zipTree(it).filter { it.name.endsWith('flink-rpc-akka.jar') } }
+      into "libs"
+    }
+    ```
 
 2. Substitute `AkkaRpcSystemLoader` to load `AkkaRpcSystem` directly from classpath.
     ```java
     @TargetClass(AkkaRpcSystemLoader.class)
     public final class SubstituteAkkaRpcSystemLoader {
-    
+
       @Substitute
       public RpcSystem loadRpcSystem(Configuration config) {
         return new AkkaRpcSystem();
