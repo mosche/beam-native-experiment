@@ -11,6 +11,7 @@ import org.jboss.jandex.Index;
 import org.jboss.jandex.IndexReader;
 
 public class PredefinedDoFnInvokerFeature implements Feature {
+  public static final String INVOKER_SUFFIX = "$DoFnInvoker";
 
   @Override
   public void beforeAnalysis(BeforeAnalysisAccess access) {

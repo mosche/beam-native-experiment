@@ -9,6 +9,8 @@ import com.oracle.svm.core.annotate.TargetClass;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.beam.sdk.transforms.DoFn;
+import org.apache.beam.sdk.transforms.reflect.DoFnSignature;
+import org.apache.beam.sdk.transforms.reflect.DoFnSignatures;
 import org.graalvm.nativeimage.hosted.FieldValueTransformer;
 
 @TargetClass(DoFnSignatures.class)
@@ -27,7 +29,11 @@ public final class SubstituteDoFnSignatures {
 
   @Substitute
   public static <FnT extends DoFn<?, ?>> DoFnSignature getSignature(Class<FnT> fn) {
-    return signatureCache.get(fn); // don't call parseSignature if absent
+    DoFnSignature signature = signatureCache.get(fn); // don't call parseSignature if absent
+    if(signature != null){
+      return signature;
+    }
+    throw new IllegalStateException("Missing pre-generated DoFn signature for " + fn.getName());
   }
 
   @Delete
