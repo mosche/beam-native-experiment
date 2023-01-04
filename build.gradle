@@ -69,13 +69,22 @@ graalvmNative {
   binaries {
     main {
       buildArgs '--features=org.apache.beam.sdk.transforms.reflect.PredefinedDoFnInvokerFeature'
+
+      buildArgs '--initialize-at-run-time=' +
+        'org.apache.beam.sdk.values.TupleTag' // uses random numbers, must be at runtime
+
       buildArgs '--initialize-at-build-time=' +
-        'org.apache.beam.sdk.transforms.reflect.DoFnSignatures,' +
-        'org.apache.beam.sdk.util.common.ReflectHelpers,' +
-        // ByteBuddy classes, initialization triggered by ByteBuddyDoFnInvokerFactory.generateInvokerType
+        'org.apache.beam,' +
+        'org.slf4j,' +
+        'com.fasterxml.jackson,' +
+        'org.codehaus.jackson,' +
+        'org.joda.time,' +
+        'java.beans,' +
+        'org.apache.avro,' +
+        'avro.shaded.com.google.common,' +
         'net.bytebuddy,' +
-        // Guava classes, initialization triggered by DoFnSignatures.parseSignature
-        'org.apache.beam.vendor.guava.v26_0_jre.com.google.common'
+        'org.apache.beam.vendor.guava,' +
+        'org.apache.beam.vendor.grpc'
     }
   }
 }
