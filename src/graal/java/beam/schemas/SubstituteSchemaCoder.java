@@ -1,4 +1,4 @@
-package schemas;
+package beam.schemas;
 
 import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.Substitute;

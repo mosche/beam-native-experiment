@@ -1,14 +1,18 @@
-package org.apache.beam.sdk.transforms.reflect;
+package beam.dofns;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.nio.file.Paths;
 import org.apache.beam.sdk.transforms.DoFn;
+import org.apache.beam.sdk.transforms.reflect.ByteBuddyDoFnInvokerFactoryHelper;
+import org.apache.beam.sdk.transforms.reflect.DoFnSignature;
+import org.apache.beam.sdk.transforms.reflect.DoFnSignatures;
 import org.graalvm.nativeimage.hosted.Feature;
 import org.graalvm.nativeimage.hosted.RuntimeReflection;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.Index;
 import org.jboss.jandex.IndexReader;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.nio.file.Paths;
 
 public class PredefinedDoFnInvokerFeature implements Feature {
   public static final String INVOKER_SUFFIX = "$DoFnInvoker";
@@ -25,7 +29,7 @@ public class PredefinedDoFnInvokerFeature implements Feature {
         DoFnSignature signature = DoFnSignatures.getSignature((Class) clazz);
 
         // Dynamically generate invoker class using ByteBuddy / Beam.
-        Class<?> invokerClass = ByteBuddyDoFnInvokerFactory.generateInvokerClass(signature);
+        Class<?> invokerClass = ByteBuddyDoFnInvokerFactoryHelper.generateInvokerClass(signature);
 
         // Register the invoker class and constructor for inclusion in the image.
         RuntimeReflection.register(invokerClass);

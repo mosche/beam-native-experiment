@@ -68,10 +68,11 @@ graalvmNative {
   }
   binaries {
     main {
-      buildArgs '--features=org.apache.beam.sdk.transforms.reflect.PredefinedDoFnInvokerFeature'
+      buildArgs '--features=beam.dofns.PredefinedDoFnInvokerFeature'
 
       buildArgs '--initialize-at-run-time=' +
-        'org.apache.beam.sdk.values.TupleTag' // uses random numbers, must be at runtime
+        'org.apache.beam.sdk.values.TupleTag,' + // uses random numbers, must be at runtime
+        'org.apache.beam.sdk.transforms.JsonToRow$JsonToRowWithErrFn' // not used, triggers init of TupleTag
 
       buildArgs '--initialize-at-build-time=' +
         'org.apache.beam,' +
@@ -79,12 +80,10 @@ graalvmNative {
         'com.fasterxml.jackson,' +
         'org.codehaus.jackson,' +
         'org.joda.time,' +
-        'java.beans,' +
         'org.apache.avro,' +
         'avro.shaded.com.google.common,' +
         'net.bytebuddy,' +
-        'org.apache.beam.vendor.guava,' +
-        'org.apache.beam.vendor.grpc'
+        'java.beans'
     }
   }
 }

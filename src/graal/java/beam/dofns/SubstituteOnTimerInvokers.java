@@ -1,12 +1,11 @@
-package org.apache.beam.sdk.transforms.reflect;
+package beam.dofns;
 
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
 import org.apache.beam.sdk.transforms.DoFn;
 import org.apache.beam.sdk.transforms.reflect.OnTimerInvoker;
-import org.apache.beam.sdk.transforms.reflect.OnTimerInvokers;
 
-@TargetClass(OnTimerInvokers.class)
+@TargetClass(className = "org.apache.beam.sdk.transforms.reflect.OnTimerInvokers")
 public final class SubstituteOnTimerInvokers {
 
   @Substitute

@@ -1,4 +1,4 @@
-package org.apache.beam.sdk.transforms.reflect;
+package beam.dofns;
 
 import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.Delete;
