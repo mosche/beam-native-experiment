@@ -85,6 +85,8 @@ runner. To keep following, pull that branch and build a local Snapshot version o
 gradle -Ppublishing -PdistMgmtSnapshotsUrl=~/.m2/repository/ -p runners/direct-java  publishToMavenLocal -PenableCheckerFramework=false
 ```
 
+Last, but not least, target parallelism of direct runner is set to 4 in the `MinimalWordCount` application itself.
+
 ### Fix usage of dynamic proxies with PipelineOptions
 
 If attempting to run a native image compiled using the generated configuration, we'll immediately notice that the agent
@@ -154,7 +156,7 @@ jandexMain {
 }
 ```
 
-#### Generate invokers using native build feature
+#### Generate invokers using native build feature (Iteration 1)
 
 Next, we implement a native [build feature](https://build-native-java-apps.cc/developer-guide/feature/) that intercepts
 image generation to generate `DoFn` invoker classes before actually analyzing what must be included in the native
@@ -194,11 +196,24 @@ Gradle [native](https://graalvm.github.io/native-build-tools/latest/gradle-plugi
 graalvmNative {
   binaries {
     main {
-      buildArgs '--features=org.apache.beam.sdk.transforms.reflect.PredefinedDoFnInvokerFeature'
+      buildArgs '--features=beam.dofns.PredefinedDoFnInvokerFeature'
     }
   }
 }
 ```
+
+#### Generate invokers using native build feature (Iteration 2)
+
+Reflecting upon the previous attempt, we've generated all possible `DoFn` signatures and invokers available on the
+classpath despite being used or not. And as we're registering all of these for runtime reflecting, everything will
+be included in the native image.
+
+Luckily we can simplify the build process, so we don't even have to index the classpath anymore. Instead of
+identifying `DoFn` invokers using jandex, we can extract the ones used at runtime from the agent
+generated `reflect-config.json`.
+
+And if doing so early enough in the native build before `reflect-config.json` is actually processed, we can even remove
+some entries that won't be used at runtime anymore because we've done the necessary work during the build already.
 
 ### Load pre-built invokers
 
@@ -233,8 +248,7 @@ initialize as many classes as possible while keeping semantics of the applicatio
 A common pitfall used to be statically initialized random number generators as mentioned in the context of direct
 runner [above](#randomized-behavior-in-directrunner). More recent versions of GraalVM will fail the build if such an
 instance is detected. In our we have to force runtime initialization of Beam's `TupleTag` (and dependents) due to it's
-static `Random`
-field (despite it being initialized with seed `0`).
+static `Random` field (despite it being initialized with seed `0`).
 
 ### Optional: Improve DoFnSignature lookup
 
@@ -296,10 +310,17 @@ The boxplot charts below visualize performance (time elapsed) and memory usage (
 multiple JVMs based on 50 benchmark runs each. For Java 8, the G1 garbage collector was configured, which became the
 default for Java 11.
 
-Results are surprising considering our initial expectations. Memory usage only improved ~ 29% (median) compared to
-the best JVM (Java 8 using G1 GC). On the other hand, performance also improved ~ 27% (median) compared to the best
-JVM (GraalVM CE 22.3.0). The latter was certainly not expected as native images are not necessarily known for great
-performance.
+Results are surprising considering our initial expectations; specifically we're looking at the first iteration here.
+Memory usage only improved ~ 29% (median) compared to the best performing JVM (Java 8 using G1 GC). On the other hand,
+performance also improved ~ 27% (median) compared to the best performing JVM (GraalVM CE 22.3.0). The latter was
+certainly not expected as native images are not necessarily known for great performance. The JVM JIT compiler does a
+great job optimizing code at runtime, which can't be done with native images. The fact that we were able to push some
+costly initialization code (such as generation of `DoFn` signatures and invokers) into the native image build might
+have helped there.
+
+As expected, results of the 2nd iteration, that slightly refines the generation of `DoFn` invokers, are very similar.
+The code executed at runtime is identical. The only difference is that we're not including unused `DoFn` signatures and
+invokers in the native image anymore. Though, considering this, it is unexpected to see a slightly higher memory usage.
 
 ```vega-lite
 {
@@ -343,21 +364,24 @@ performance.
 }
 ```
 
-|              | Runtime system                    | Q1        | Median    | Q3        |
-|--------------|-----------------------------------|-----------|-----------|-----------|
-| Time elapsed | Native - Iteration 1              | 40.8 s    | 61.8 s    | 75.1 s    |
-|              | JVM - Corretto 8.322 (G1)         | 106.3 s   | 118.9 s   | 130.2 s   |
-|              | JVM - Corretto 11.0.16            | 88.2 s    | 102.8 s   | 113.8 s   |
-|              | JVM - GraalVM CE 22.3.0 (11.0.17) | 72.8 s    | 85.2 s    | 103.2 s   |
-| Max RSS      | Native - Iteration 1              | 390.8 Mb  | 473.7 Mb  | 539.9 Mb  |
-|              | JVM - Corretto 8.322 (G1)         | 661.1 Mb  | 670.3 Mb  | 680.7 Mb  |
-|              | JVM - Corretto 11.0.16            | 1164.5 Mb | 1175.8 Mb | 1188.6 Mb |
-|              | JVM - GraalVM CE 22.3.0 (11.0.17) | 1107.3 Mb | 1121.5 Mb | 1139.4 Mb |
+|              | Runtime system                    | Q1        | Median    | Q3        | Max       |
+|--------------|-----------------------------------|-----------|-----------|-----------|-----------|
+| Time elapsed | Native - Iteration 1              | 40.8 s    | 61.8 s    | 75.1 s    | 84,3 s    |
+|              | Native - Iteration 2              | 38.8 s    | 61.1 s    | 73.1 s    | 98.4 s    |
+|              | JVM - Corretto 8.322 (G1)         | 106.3 s   | 118.9 s   | 130.2 s   | 153.8 s   |
+|              | JVM - Corretto 11.0.16            | 88.2 s    | 102.8 s   | 113.8 s   | 166.9 s   |
+|              | JVM - GraalVM CE 22.3.0 (11.0.17) | 72.8 s    | 85.2 s    | 103.2 s   | 161.2 s   |
+| Max RSS      | Native - Iteration 1              | 390.8 Mb  | 473.7 Mb  | 539.9 Mb  | 752.5 s   |
+|              | Native - Iteration 2              | 393.8 Mb  | 487.3 Mb  | 601.3 Mb  | 785.8 Mb  |
+|              | JVM - Corretto 8.322 (G1)         | 661.1 Mb  | 670.3 Mb  | 680.7 Mb  | 692.3 Mb  |
+|              | JVM - Corretto 11.0.16            | 1164.5 Mb | 1175.8 Mb | 1188.6 Mb | 1222.4 Mb |
+|              | JVM - GraalVM CE 22.3.0 (11.0.17) | 1107.3 Mb | 1121.5 Mb | 1139.4 Mb | 1225.6 Mb |
 
 ### Next steps
 
-The results seen in this investigation are promising. It is totally possible to run a Beam pipeline as native image
-locally. However, the high memory usage of the native pipeline - despite the improvement - is somehow disappointing.
+The results seen in this investigation are promising. It is absolutely feasible to run a Beam pipeline locally as native
+image. However, the unexpected high memory usage of the native pipeline - despite the improvement - is somehow a bit
+disappointing. Though, this might be an issue of the local runner.
 
-We are planning to investigate this further with a more performance oriented runner, either using Spark or Flink or
-even a new lightweight in-memory runner developed from scratch.
+The next step here is to investigate this further with a more performance oriented runner, either using Spark or Flink
+or even a new lightweight in-memory runner developed from scratch.

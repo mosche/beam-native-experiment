@@ -2,7 +2,6 @@ plugins {
   id 'com.github.johnrengelman.shadow' version '7.1.2'
   // Apply GraalVM Native Image plugin
   id 'org.graalvm.buildtools.native' version '0.9.18'
-  id "com.github.vlsi.jandex" version "1.84"
   id 'application'
 }
 
@@ -29,10 +28,6 @@ configurations {
   graalImplementation.extendsFrom(implementation)
   nativeImageCompileOnly.extendsFrom(graalCompileOnly)
 
-  jandexOnly {
-    transitive = false // don't index transitive dependencies
-  }
-
   all {
     resolutionStrategy {
       force "org.apache.beam:beam-sdks-java-core:${beamVersion}-SNAPSHOT"
@@ -49,14 +44,9 @@ dependencies {
 
   // dependencies to build the native image
   graalCompileOnly "org.graalvm.nativeimage:svm:22.3.0"
-  graalCompileOnly "io.smallrye:jandex:3.0.5"
 
   // use graal source set to compile native-image
   nativeImageCompileOnly sourceSets.graal.output
-
-  // dependencies to index with jandex
-  jandexOnly "org.apache.beam:beam-sdks-java-core:${beamVersion}"
-  jandexOnly "org.apache.beam:beam-runners-direct-java:${beamVersion}"
 }
 
 graalvmNative {
@@ -87,18 +77,6 @@ graalvmNative {
     }
   }
 }
-
-jandex {
-  includeIndexInJar false
-}
-
-jandexMain {
-  inputFiles.from(
-    configurations.jandexOnly
-      .filter { it.name.endsWith('.jar') }
-      .collect { zipTree(it).filter { it.name.endsWith('.class') } })
-}
-
 
 shadowJar {
   mergeServiceFiles() // merging service files in META-INF
